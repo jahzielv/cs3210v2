@@ -3,9 +3,9 @@
 #[cfg(test)]
 mod tests;
 
-use core::slice;
 use core::iter::IntoIterator;
 use core::ops::{Deref, DerefMut};
+use core::slice;
 
 /// A contiguous array type backed by a slice.
 ///
@@ -18,7 +18,7 @@ use core::ops::{Deref, DerefMut};
 #[derive(Debug)]
 pub struct StackVec<'a, T: 'a> {
     storage: &'a mut [T],
-    len: usize
+    len: usize,
 }
 
 impl<'a, T: 'a> StackVec<'a, T> {
@@ -26,7 +26,12 @@ impl<'a, T: 'a> StackVec<'a, T> {
     /// store. The returned `StackVec` will be able to hold `storage.len()`
     /// values.
     pub fn new(storage: &'a mut [T]) -> StackVec<'a, T> {
-        unimplemented!()
+        // unimplemented!()
+        let l = storage.len();
+        return StackVec {
+            storage: storage,
+            len: l,
+        };
     }
 
     /// Constructs a new `StackVec<T>` using `storage` as the backing store. The
@@ -43,7 +48,8 @@ impl<'a, T: 'a> StackVec<'a, T> {
 
     /// Returns the number of elements this vector can hold.
     pub fn capacity(&self) -> usize {
-        unimplemented!()
+        // unimplemented!()
+        self.len
     }
 
     /// Shortens the vector, keeping the first `len` elements. If `len` is
